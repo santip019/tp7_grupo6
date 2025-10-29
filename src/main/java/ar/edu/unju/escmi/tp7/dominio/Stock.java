@@ -1,11 +1,11 @@
 package ar.edu.unju.escmi.tp7.dominio;
 
 public class Stock {
-	 private int cantidad;
-	 private Producto producto;
+	private int cantidad;
+	private Producto producto;
 
-	 public Stock() {
-     }
+	public Stock() {
+    }
 
     public Stock(int cantidad, Producto producto) {
         this.cantidad = cantidad;
@@ -26,5 +26,22 @@ public class Stock {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    /* Metodos */
+    public boolean validarStockDisponible () {
+        if (this.cantidad <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public void actualizarStock (int cantidadVendida) {
+        if (cantidadVendida > this.cantidad) {
+            System.out.println("No hay stock suficiente");
+        }
+        else {
+            this.cantidad = this.cantidad - cantidadVendida;
+        }
     }
 }
