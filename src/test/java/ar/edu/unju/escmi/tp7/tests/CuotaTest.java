@@ -49,12 +49,12 @@ public class CuotaTest {
 
         // Asignas la cantidad deseada (en este caso, 1 cuota) aca fallara el test al
         // ser 1
-        // listaCuotas.add(new Cuota());
+        listaCuotas.add(new Cuota());
 
         // Si quisieras 30 cuotas, usarías un bucle:
-        for (int i = 0; i < 30; i++) {
-            listaCuotas.add(new Cuota());
-        }
+        // for (int i = 0; i < 30; i++) {
+        // listaCuotas.add(new Cuota());
+        // }
 
         // Crear el objeto Credito con la lista de cuotas
         Credito credito = new Credito(listaCuotas);
