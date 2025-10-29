@@ -8,16 +8,18 @@ public class Cuota {
 	 private int nroCuota;
 	 private LocalDate fechaGeneracion;
 	 private LocalDate fechaVencimiento;
+	 private boolean estado; /* true = PAGADA y false = PENDIENTE */
 
 	 public Cuota() {
 
 	 }
 
-	 public Cuota(double monto, int nroCuota, LocalDate fechaGeneracion, LocalDate fechaVencimiento) {
+	 public Cuota(double monto, int nroCuota, LocalDate fechaGeneracion, LocalDate fechaVencimiento, boolean estado) {
 	        this.monto = monto;
 	        this.nroCuota = nroCuota;
 	        this.fechaGeneracion = fechaGeneracion;
 	        this.fechaVencimiento = fechaVencimiento;
+			this.estado = estado;
 	 }
 
 	 public double getMonto() {
@@ -52,10 +54,21 @@ public class Cuota {
 	        this.fechaVencimiento = fechaVencimiento;
 	 }
 
+	 public boolean isEstado() {
+		 return estado;
+	 }
+
+	 public void setEstado(boolean estado) {
+		 this.estado = estado;
+	 }
+	 
+
 	 @Override
 	public String toString() {
 		return "Monto: " + monto + ", N° De Cuota:" + nroCuota + ", Fecha De Generacion: " + fechaGeneracion
-				+ ", Fecha De Vencimiento: " + fechaVencimiento + "\n";
+				+ ", Fecha De Vencimiento: " + fechaVencimiento + ", Estado: " + estado + "\n";
 	}
+
+	 
 	    
 }
