@@ -7,6 +7,7 @@ import ar.edu.unju.escmi.tp7.collections.CollectionProducto;
 import ar.edu.unju.escmi.tp7.collections.CollectionStock;
 import ar.edu.unju.escmi.tp7.collections.CollectionTarjetaCredito;
 import ar.edu.unju.escmi.tp7.collections.CollectionCredito;
+import ar.edu.unju.escmi.tp7.collections.CollectionFactura;
 
 public class Main {
 
@@ -36,7 +37,10 @@ public class Main {
                     // Lógica para realizar una venta
                     break;
                 case 2:
-                    // Lógica para revisar compras realizadas por el cliente
+                    System.out.println("Ingrese el DNI del cliente a buscar sus compras: ");
+                    long dniBuscarFactura = scanner.nextLong();
+                    // Mostrar facturas (ventas) del cliente
+                    CollectionFactura.buscarFacturasPorDni(dniBuscarFactura);
                     break;
                 case 3:
                     // Lógica para mostrar lista de electrodomésticos

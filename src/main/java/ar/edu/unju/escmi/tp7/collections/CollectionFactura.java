@@ -38,4 +38,35 @@ public class CollectionFactura {
 		
 		return facturaEncontrada;
 	}
+
+	public static void buscarFacturasPorDni(long dni) {
+
+		System.out.println("=================================================");
+		System.out.println("BUSCANDO FACTURAS PARA DNI: " + dni);
+		System.out.println("=================================================");
+
+		boolean encontrado = false;
+
+		try {
+			if (facturas != null && !facturas.isEmpty()) {
+				for (Factura fac : facturas) {
+					try {
+						if (fac.getCliente() != null && fac.getCliente().getDni() == dni) {
+							System.out.println(fac.toString());
+							encontrado = true;
+						}
+					} catch (NullPointerException e) {
+						System.out.println("Advertencia: factura incompleta encontrada y omitida.");
+					}
+				}
+			}
+
+			if (!encontrado) {
+				System.out.println(" No se encontraron facturas asociadas al DNI " + dni + ".");
+			}
+
+		} catch (Exception e) {
+			System.out.println("ERROR durante la búsqueda de facturas: " + e.getMessage());
+		}
+	}
 }
