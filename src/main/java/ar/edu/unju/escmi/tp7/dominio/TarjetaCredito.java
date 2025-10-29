@@ -19,7 +19,6 @@ public class TarjetaCredito {
     
 
     public TarjetaCredito(long numero, LocalDate fechaCaducacion, Cliente cliente, double limiteCompra) {
-		super();
 		this.numero = numero;
 		this.fechaCaducacion = fechaCaducacion;
 		this.cliente = cliente;
