@@ -1,4 +1,4 @@
-package ar.edu.unju.escmi.tp7.tests;
+package ar.edu.unju.escmi.poo.tp7.tests;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
