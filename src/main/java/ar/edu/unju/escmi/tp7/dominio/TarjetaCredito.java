@@ -8,6 +8,10 @@ public class TarjetaCredito {
 	 private LocalDate fechaCaducacion;
 	 private Cliente cliente;
 	 private double limiteCompra;
+	 private double saldoDisponible;
+
+	private static final double LIMITE_TARJETAS = 2000000.0;
+
 
 	 public TarjetaCredito() {
      }
@@ -19,7 +23,8 @@ public class TarjetaCredito {
 		this.numero = numero;
 		this.fechaCaducacion = fechaCaducacion;
 		this.cliente = cliente;
-		this.limiteCompra = limiteCompra;
+		this.limiteCompra = LIMITE_TARJETAS;
+		this.saldoDisponible = limiteCompra;
 	}
 
 
@@ -52,6 +57,17 @@ public class TarjetaCredito {
 		this.limiteCompra = limiteCompra;
 	}
 
+	public boolean tieneSaldoSuficiente(double monto) {
+        return saldoDisponible >= monto;
+    }
+
+    public void descontarMonto(double monto) {
+        if (tieneSaldoSuficiente(monto)) {
+            saldoDisponible -= monto;
+        } else {
+            System.out.println("Saldo insuficiente en la tarjeta.");
+        }
+    }
 	
 	@Override
 	public String toString() {
