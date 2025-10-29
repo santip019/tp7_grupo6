@@ -112,6 +112,18 @@ public class CollectionProducto {
 			return productosAhora30;
 		}
 
+		public static boolean buscarProductoAhora30 (long codigo) {
+			List<Producto> productosAhora30 = obtenerProductosAhora30();
+			
+			for (Producto p : productosAhora30) {
+				if (p.getCodigo() == codigo) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
 		public static void mostrarProductosAhora30() {
 			System.out.println("\n====== Lista de productos disponibles - Ahora 30 ======");
 			CollectionStock.mostrarStockAhora30(obtenerProductosAhora30());

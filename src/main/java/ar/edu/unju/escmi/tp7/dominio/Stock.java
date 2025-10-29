@@ -29,8 +29,8 @@ public class Stock {
     }
 
     /* Metodos */
-    public boolean validarStockDisponible () {
-        if (this.cantidad <= 0) {
+    public boolean validarStockDisponible (int cantidadSolicitada) {
+        if (this.cantidad <= cantidadSolicitada) {
             return false;
         }
         return true;

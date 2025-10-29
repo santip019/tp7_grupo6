@@ -14,7 +14,6 @@ public class Detalle {
         this.cantidad = cantidad;
         this.importe = importe;
         this.producto = producto;
-        calcularImporte();
     }
 
     public int getCantidad() {
