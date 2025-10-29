@@ -43,7 +43,8 @@ public class Main {
                     CollectionFactura.buscarFacturasPorDni(dniBuscarFactura);
                     break;
                 case 3:
-                    // Lógica para mostrar lista de electrodomésticos
+                    // Lógica para mostrar lista de productos incluidos en el ahora 30
+                    CollectionProducto.mostrarProductosAhora30();
                     break;
                 case 4:
                     // Lógica para consultar stock
