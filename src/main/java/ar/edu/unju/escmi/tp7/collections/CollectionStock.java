@@ -83,7 +83,7 @@ public class CollectionStock {
 		try {
 			if (stocks != null) {
 				for (Stock sto : stocks) {
-					if (sto.getProducto() == producto) {
+					if (sto.getProducto().getCodigo() == producto.getCodigo()) {
 						stockTotal = sto;
 					}
 				}
@@ -93,5 +93,31 @@ public class CollectionStock {
 		}
 		
 		return stockTotal;
+	}
+
+	public static void mostrarStockAhora30() {
+		mostrarStockAhora30(CollectionProducto.obtenerProductosAhora30());
+	}
+
+	public static void mostrarStockAhora30(List<Producto> productosAhora30) {
+		System.out.println("Productos que califican para el plan:\n");
+		boolean hayProductos = false;
+
+		if (stocks != null && productosAhora30 != null) {
+			for (Producto producto : productosAhora30) {
+				Stock stock = buscarStock(producto);
+				if (stock != null) {
+					System.out.println("-----------------------------------------------------------");
+					System.out.println(producto);
+					System.out.println("Stock disponible: " + stock.getCantidad() + " unidades");
+					hayProductos = true;
+				}
+			}
+		}
+		
+		if (!hayProductos) {
+			System.out.println("No hay stock disponible para productos del plan Ahora 30.");
+		}
+		System.out.println("-----------------------------------------------------------");
 	}
 }
