@@ -80,4 +80,20 @@ public class CollectionProducto {
 	        
 	        return productoEncontrado;
 	    }
+		public static void mostrarProductosAhora30() {
+			System.out.println("\n====== Lista de productos disponibles - Ahora 30 ======");
+			for (Producto p : productos) {
+				String descripcion = p.getDescripcion().toLowerCase();
+				// Si el producto es un celular limite de 800000
+				if (descripcion.contains("celular") && p.getPrecioUnitario() <= 800000) {
+					System.out.println(p);
+					System.out.println("-----------------------------------------------------------");
+				// Si el producto es un electrodomestico tiene limite de 1500000
+				} else if (!descripcion.contains("celular") && p.getPrecioUnitario() <= 1500000) {
+					System.out.println(p);
+					System.out.println("-----------------------------------------------------------");
+				}
+			}
+			System.out.println("Fin del listado.");
+		}
 }
