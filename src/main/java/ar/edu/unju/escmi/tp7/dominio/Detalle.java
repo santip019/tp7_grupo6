@@ -5,15 +5,17 @@ public class Detalle {
 	private int cantidad;
     private double importe;
     private Producto producto;
+    private boolean estadoAhora30; /* true = el detalle es de un producto 'Ahora 30' y false = el detalle no es de un producto 'Ahora 30' */
 
     public Detalle() {
 
     }
 
-    public Detalle(int cantidad, double importe, Producto producto) {
+    public Detalle(int cantidad, double importe, Producto producto, boolean estadoAhora30) {
         this.cantidad = cantidad;
         this.importe = importe;
         this.producto = producto;
+        this.estadoAhora30 = estadoAhora30;
     }
 
     public int getCantidad() {
@@ -40,6 +42,14 @@ public class Detalle {
         this.producto = producto;
     }
 
+    public boolean isEstadoAhora30() {
+        return estadoAhora30;
+    }
+
+    public void setEstadoAhora30(boolean estadoAhora30) {
+        this.estadoAhora30 = estadoAhora30;
+    }
+
     private void calcularImporte() {
         this.setImporte(this.cantidad * this.producto.getPrecioUnitario());
     }
@@ -48,4 +58,6 @@ public class Detalle {
     public String toString() {
         return "PRODUCTO: " + producto + "\nCANTIDAD: " + cantidad + " | IMPORTE: " + importe + "\n";
     }
+
+    
 }
