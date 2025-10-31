@@ -59,10 +59,22 @@ public class Factura {
         detalles.add(detalle);
     }
 
+    public double calcularTotalAhora30() {
+        double totalAhora30 = 0;
+        for (Detalle detalle : detalles) {
+            if (detalle.isEstadoAhora30()) {
+                totalAhora30 += detalle.getImporte();
+            }
+        }
+        return totalAhora30;
+    }
+
     public double calcularTotal() {
         double total = 0;
         for (Detalle detalle : detalles) {
-            total += detalle.getImporte();
+            if (!detalle.isEstadoAhora30()) {
+                total += detalle.getImporte();
+            }
         }
         return total;
     }
