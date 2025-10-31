@@ -1,91 +1,128 @@
 package ar.edu.unju.escmi.poo.tp7.tests;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ar.edu.unju.escmi.tp7.dominio.Cuota;
+
+import ar.edu.unju.escmi.tp7.dominio.Cliente;
 import ar.edu.unju.escmi.tp7.dominio.Credito;
+import ar.edu.unju.escmi.tp7.dominio.Cuota;
+import ar.edu.unju.escmi.tp7.dominio.Detalle;
+import ar.edu.unju.escmi.tp7.dominio.Factura;
+import ar.edu.unju.escmi.tp7.dominio.Producto;
+import ar.edu.unju.escmi.tp7.dominio.TarjetaCredito;
 
 public class CuotaTest {
 
-    @Test
-    void testCuotaNoNula() {
-        // Implementar el test para validar que la lista de cuota no sea nula
-        List<Cuota> listaInicial = new ArrayList<>();
-
-        Credito credito = new Credito(listaInicial);
-
-        // 2. Ejecución
-        List<Cuota> cuotas = credito.getCuotas();
-
-        // 3. Verificación
-        assertNotNull(cuotas, "La lista de cuotas no debería ser nula después de usar el constructor con lista.");
+    private Credito credito;
+    private Cliente cliente;
+    private TarjetaCredito tarjeta;
+    private Factura factura;
+    
+    @BeforeEach
+    void setUp() {
+        // Preparar datos de prueba
+        cliente = new Cliente(12345678, "Cliente Test", "Direccion Test", "1234567890");
+        // Crear tarjeta con límite de 2000000 (usando la constante LIMITE_TARJETAS de TarjetaCredito)
+        tarjeta = new TarjetaCredito(123456789L, LocalDate.of(2026, 12, 31), cliente, 2000000.0);
+        
+        // Crear un producto de prueba (TV con precio 900000)
+        Producto producto = new Producto();
+        producto.setCodigo(1L);
+        producto.setDescripcion("TV 55 pulgadas");
+        producto.setPrecioUnitario(900000);
+        producto.setOrigenFabricacion("Nacional");
+        
+        // Crear una factura con monto total de 900000 (dentro del límite permitido)
+        List<Detalle> detalles = new ArrayList<>();
+        Detalle detalle = new Detalle();
+        detalle.setCantidad(1);
+        detalle.setProducto(producto);
+        detalle.setImporte(producto.getPrecioUnitario() * detalle.getCantidad());
+        detalles.add(detalle);
+        
+        // Crear la factura
+        factura = new Factura();
+        factura.setFecha(LocalDate.now());
+        factura.setNroFactura(1L);
+        factura.setCliente(cliente);
+        factura.setDetalles(detalles);
     }
 
     @Test
-    void testCasoNull() {
-        // caso en que la lista de cuotas sea nula
-        Credito credito = new Credito();
-
-        // Ejecución: Forzamos el valor a null usando el setter que lo permite.
-        credito.setCuotas(null); // Esto provoca que el valor interno sea null.
-
-        // Verificación: Comprobamos que el getter ahora devuelve null.
-        List<Cuota> cuotas = credito.getCuotas();
-
-        // Assertions.assertNull verifica que el objeto SÍ sea null.
-        assertNull(cuotas, "La lista de cuotas DEBERÍA ser nula después de llamar a setCuotas(null).");
-        // en caso de poner assertNotNull fallara porque se espera que sea nulo
+    void testListaCuotasNoNulaAlGenerarCuotas() {
+        // 1. Preparar
+        credito = new Credito(tarjeta, factura, new ArrayList<>(), cliente);
+        
+        // 2. Ejecutar
+        credito.generarCuotas();
+        
+        // 3. Verificar
+        assertNotNull(credito.getCuotas(), "La lista de cuotas no debe ser nula después de generarCuotas()");
     }
 
     @Test
-    void testCuotasMinimas() {
-        // Implementar el test para validar que la cantidad de cuotas no sea menor a 30
-        List<Cuota> listaCuotas = new ArrayList<>(); // Lista vacía
-
-        // Asignas la cantidad deseada (en este caso, 1 cuota) aca fallara el test al
-        // ser 1
-        listaCuotas.add(new Cuota());
-
-        // Si quisieras 30 cuotas, usarías un bucle:
-        // for (int i = 0; i < 30; i++) {
-        // listaCuotas.add(new Cuota());
-        // }
-
-        // Crear el objeto Credito con la lista de cuotas
-        Credito credito = new Credito(listaCuotas);
-
-        // Ejecución
-        List<Cuota> cuotas = credito.getCuotas();
-
-        // Verificación
-        assert (cuotas.size() == 30) : "La cantidad de cuotas no debería ser menor a 30";
-    }
-
-    @Test
-    void testCuotasMaximas() {
-        // Implementar el test para validar que la cantidad de cuotas no supere el
-        // máximo permitido
-        List<Cuota> listaCuotas = new ArrayList<>();
-
-        // Agregar 30 cuotas a la lista
-        for (int i = 0; i < 30; i++) {
-            listaCuotas.add(new Cuota());
+    void testGeneracionDe30Cuotas() {
+        // 1. Preparar
+        credito = new Credito(tarjeta, factura, new ArrayList<>(), cliente);
+        
+        // 2. Ejecutar
+        credito.generarCuotas();
+        
+        // 3. Verificar
+        assertEquals(30, credito.getCuotas().size(), "El crédito debe generar exactamente 30 cuotas");
+        
+        // Verificar que los montos sean correctos (900000 / 30 = 30000 por cuota)
+        double montoEsperadoPorCuota = 30000.0;
+        for (Cuota cuota : credito.getCuotas()) {
+            assertEquals(montoEsperadoPorCuota, cuota.getMonto(), 0.01, 
+                "Cada cuota debe tener el monto correcto (total/30)");
         }
+    }
 
-        // Crear el objeto Credito con la lista de cuotas
-        Credito credito = new Credito(listaCuotas);
+    @Test
+    void testNoPermiteMasDe30Cuotas() {
+        // 1. Preparar - Intentar crear un crédito con más de 30 cuotas
+        credito = new Credito(tarjeta, factura, new ArrayList<>(), cliente);
+        
+        // 2. Ejecutar y verificar
+        // El constructor ya llama a generarCuotas(), así que solo verificamos
+        assertEquals(30, credito.getCuotas().size(), 
+            "El crédito debe tener exactamente 30 cuotas");
+            
+        // Intentar modificar la lista no debería afectar al crédito
+        List<Cuota> cuotasModificables = credito.getCuotas();
+        cuotasModificables.add(new Cuota());
+        
+        // La lista interna del crédito debe mantenerse en 30
+        assertEquals(30, credito.getCuotas().size(), 
+            "El crédito debe mantener 30 cuotas aunque se modifique la lista devuelta");
+    }
 
-        // Ejecución
+    //Test Extra
+    @Test
+    void testValidarFechasGeneracionYVencimiento() {
+        // 1. Preparar
+        credito = new Credito(tarjeta, factura, new ArrayList<>(), cliente);
+        LocalDate fechaActual = LocalDate.now();
+        
+        // 2. Ejecutar
+        credito.generarCuotas();
+        
+        // 3. Verificar fechas de generación y vencimiento
         List<Cuota> cuotas = credito.getCuotas();
-
-        // Verificación
-        int maximoPermitido = 30;
-        assert (cuotas.size() <= maximoPermitido) : "La cantidad de cuotas no debería superar el máximo permitido";
+        for (int i = 0; i < cuotas.size(); i++) {
+            Cuota cuota = cuotas.get(i);
+            assertEquals(fechaActual, cuota.getFechaGeneracion(), 
+                "La fecha de generación debe ser la fecha actual");
+            assertEquals(fechaActual.plusMonths(i + 1), cuota.getFechaVencimiento(), 
+                "La fecha de vencimiento debe ser un mes después por cada cuota");
+        }
     }
 
 }
