@@ -86,7 +86,7 @@ public class Credito {
 	}
 
 	public void mostarCredito() {
-		System.out.println("Tarjeta De Credito: " + tarjetaCredito + "\n" + factura + "\nCant. Cuotas:\n");
+		System.out.println("***Tarjeta De Credito***" + tarjetaCredito + "\n" + factura + "\n\nCUOTAS:");
 		for (Cuota cuota : cuotas) {
 			System.out.println(cuota);
 		}
