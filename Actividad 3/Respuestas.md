@@ -9,6 +9,7 @@ Esa relación a pesar de no estar en el diagrama UML inicial, el grupo la agrego
 La clase Factura tiene dos atributos:
 - 1. `nroFactura`
 - 2. `fecha`
+- 3. `contador`
 
 ### c) ¿Cómo se llama la relación que se establece entre Factura y Detalle?
 Se llama relación de `composición`, por lo que los objetos detalle dependen completamente de la factura a la que pertenecen. Si la factura se elimina, sus detalles también se eliminan.
