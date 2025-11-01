@@ -244,7 +244,9 @@ public class Main {
                     CollectionProducto.mostrarProductosAhora30();
                     break;
                 case 4:
-                    // Lógica para consultar stock
+                    // Mostrar stock de productos con Ahora 30
+                    System.out.println("\n====== Stock de Productos Ahora 30 ======");
+                    CollectionStock.mostrarStockAhora30();
                     break;
                 case 5:
                     System.out.println("Ingrese el DNI del cliente a buscar sus créditos: ");
