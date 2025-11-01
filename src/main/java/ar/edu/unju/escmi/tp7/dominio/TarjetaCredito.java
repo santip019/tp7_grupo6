@@ -70,8 +70,8 @@ public class TarjetaCredito {
 	
 	@Override
 	public String toString() {
-		return "\nNumero: " + numero + " Fecha De Caducacion: " + fechaCaducacion + "\nNombre Titular: "
-				+ cliente.getNombre() + ", Limite De Compra Actual:" + limiteCompra;
+		return "\nNumero: " + numero + "\nFecha De Caducacion: " + fechaCaducacion + "\nNombre Titular: "
+				+ cliente.getNombre() + "\nLimite De Compra Actual:" + limiteCompra;
 	}
 
 }

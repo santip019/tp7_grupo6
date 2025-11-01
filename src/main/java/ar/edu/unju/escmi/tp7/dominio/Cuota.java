@@ -66,7 +66,7 @@ public class Cuota {
 	 @Override
 	public String toString() {
 		return "Monto: " + monto + ", N° De Cuota:" + nroCuota + ", Fecha De Generacion: " + fechaGeneracion
-				+ ", Fecha De Vencimiento: " + fechaVencimiento + ", Estado: " + estado + "\n";
+				+ ", Fecha De Vencimiento: " + fechaVencimiento + ", Estado: " + (estado? "PAGADO" : "PENDIENTE") + "\n";
 	}
 
 	 
