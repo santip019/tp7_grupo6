@@ -56,7 +56,10 @@ public class Detalle {
 
     @Override
     public String toString() {
-        return "PRODUCTO: " + producto + "\nCANTIDAD: " + cantidad + " | IMPORTE: " + importe + "\n";
+        return "--- PRODUCTO ---" + producto + 
+            "\nCANTIDAD: " + cantidad +
+            "\nIMPORTE: $" + importe + 
+            "\n" + (estadoAhora30 ? "PERTENECE AL PROGRAMA AHORA 30" : "PRODUCTO NORMAL");
     }
 
     

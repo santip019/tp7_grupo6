@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Factura {
 
-	private static int contador = 0;
+	private static int contador = 1;
     private LocalDate fecha;
     private long nroFactura;
     private Cliente cliente;
@@ -79,12 +79,25 @@ public class Factura {
         return total;
     }
 
+    public boolean esFacturaAhora30() {
+        for (Detalle detalle : detalles) {
+            if (detalle.isEstadoAhora30()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return  "\n\n******************** Factura ********************"
-                + "\nFecha: " + fecha + " N° de Factura: " + nroFactura
-                + "\nCliente: " + cliente.getNombre() 
+                + "\nFecha: " + fecha + "\nN° de Factura: " + nroFactura
+                + "\nCliente: " + cliente.getNombre() + "\nDNI: " + cliente.getDni()
                 + "\n************ Detalles de la Factura *************"
-                + "\n" + detalles.toString().replaceAll("\\[|\\]", "").replaceAll(", ", "") + "\n";
+                + "\n" + detalles.toString().replaceAll("\\[|\\]", "").replaceAll(", ", "") + "\n"
+                + (esFacturaAhora30() ? "\nTotal Ahora 30: $" + calcularTotalAhora30() 
+                + "\nMonto de cada couta fija: " + calcularTotalAhora30()/30 : "Subtotal: $" + calcularTotal())
+                + "\nMonto total: $" + (calcularTotal() + calcularTotalAhora30());
+
     }
 }
