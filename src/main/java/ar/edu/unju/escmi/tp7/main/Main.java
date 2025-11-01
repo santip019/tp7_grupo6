@@ -9,7 +9,6 @@ import ar.edu.unju.escmi.tp7.collections.CollectionStock;
 import ar.edu.unju.escmi.tp7.collections.CollectionTarjetaCredito;
 import ar.edu.unju.escmi.tp7.dominio.Cliente;
 import ar.edu.unju.escmi.tp7.dominio.Credito;
-import ar.edu.unju.escmi.tp7.dominio.Cuota;
 import ar.edu.unju.escmi.tp7.dominio.Detalle;
 import ar.edu.unju.escmi.tp7.dominio.Factura;
 import ar.edu.unju.escmi.tp7.dominio.Producto;
@@ -148,6 +147,7 @@ public class Main {
                                                         // Crear detalle
                                                         Detalle detalle = new Detalle(cantidadProducto, precioTotal, producto, estadoAhora30);
                                                         factura.agregarDetalle(detalle);
+                                                        tarjetaCredito.descontarMonto(precioTotal);
                                                         System.out.println("--- Compra realizada con exito ---");
                                                         // Actualizar stock
                                                         stock.actualizarStock(cantidadProducto);
@@ -174,6 +174,7 @@ public class Main {
                                                         // Crear detalle
                                                         Detalle detalle = new Detalle(cantidadProducto, precioTotal, producto, estadoAhora30);
                                                         factura.agregarDetalle(detalle);
+                                                        tarjetaCredito.descontarMonto(precioTotal);
                                                         System.out.println("--- Compra realizada con exito ---");
                                                         // Actualizar stock
                                                         stock.actualizarStock(cantidadProducto);

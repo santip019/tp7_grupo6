@@ -50,10 +50,6 @@ public class Detalle {
         this.estadoAhora30 = estadoAhora30;
     }
 
-    private void calcularImporte() {
-        this.setImporte(this.cantidad * this.producto.getPrecioUnitario());
-    }
-
     @Override
     public String toString() {
         return "--- PRODUCTO ---" + producto + 
