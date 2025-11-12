@@ -3,13 +3,14 @@
 ## 3.- Responda las siguientes preguntas:
 
 ### a) ¿Por qué no se dibuja la relación de agregación entre la clase CollectionProducto y Producto?
-Esa relación a pesar de no estar en el diagrama UML inicial, el grupo la agrego la relación de agregación, para que tenga correspondencia con todas las otras relaciones dirigidas a las collections. Pero anteriormente no estaba incluida CollectionProducto básicamente porque no forma parte del modelo de dominio, su función es almacenar temporalmente objetos Producto.
+No se dibuja la relación de agregación entre CollectionProducto y Producto porque el vínculo ya se entiende a partir de un atributo en CollectionProducto, ademas su función es guardar y administrar una lista de objetos Producto, eso no es una relación conceptual entre objetos del sistema, sino una estructura de almacenamiento.
 
 ### b) ¿Cuántos atributos tiene la clase Factura? ¿Cuáles son los nombres de esos atributos?
-La clase Factura tiene dos atributos:
-- 1. `nroFactura`
-- 2. `fecha`
-- 3. `contador`
+La clase Factura tiene 4 atributos:
+- `nroFactura: long`
+- `fecha: LocalDate`
+- `clientes: Cliente`
+- `detalles: list`
 
 ### c) ¿Cómo se llama la relación que se establece entre Factura y Detalle?
 Se llama relación de `composición`, por lo que los objetos detalle dependen completamente de la factura a la que pertenecen. Si la factura se elimina, sus detalles también se eliminan.
