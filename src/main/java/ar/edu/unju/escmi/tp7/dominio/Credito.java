@@ -10,16 +10,16 @@ public class Credito {
 	private Factura factura;
 	private List<Cuota> cuotas = new ArrayList<Cuota>();
 	private Cliente cliente;
+	private double montoCredito;
 
 	public Credito() {
 	}
 
-	public Credito(TarjetaCredito tarjetaCredito, Factura factura, List<Cuota> cuotas, Cliente cliente) {
+	public Credito(TarjetaCredito tarjetaCredito, Factura factura, Cliente cliente, double montoCredito) {
 		this.tarjetaCredito = tarjetaCredito;
 		this.factura = factura;
-		this.cuotas = cuotas;
 		this.cliente = cliente;
-		generarCuotas();
+		this.montoCredito = montoCredito;
 	}
 
 	public Credito(List<Cuota> cuotas) {
@@ -58,8 +58,16 @@ public class Credito {
 		this.cliente = cliente;
 	}
 
+	public double getMontoCredito() {
+		return montoCredito;
+	}
+
+	public void setMontoCredito(double montoCredito) {
+		this.montoCredito = montoCredito;
+	}
+
 	public void generarCuotas() {
-		double montoCuota = this.factura.calcularTotal() / 30;
+		double montoCuota = this.factura.calcularTotalAhora30() / 30;
 		int nroCuota = 0;
 		LocalDate currentDate = LocalDate.now();
 		LocalDate auxDate = LocalDate.now();
@@ -78,9 +86,10 @@ public class Credito {
 	}
 
 	public void mostarCredito() {
-		System.out.println("Tarjeta De Credito: " + tarjetaCredito + "\n" + factura + "\nCant. Cuotas:\n");
+		System.out.println("***Tarjeta De Credito***" + tarjetaCredito + "\n" + factura + "\n\nCUOTAS:");
 		for (Cuota cuota : cuotas) {
 			System.out.println(cuota);
 		}
 	}
+
 }

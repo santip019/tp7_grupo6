@@ -80,20 +80,52 @@ public class CollectionProducto {
 	        
 	        return productoEncontrado;
 	    }
-		public static void mostrarProductosAhora30() {
-			System.out.println("\n====== Lista de productos disponibles - Ahora 30 ======");
+
+		public static List<Producto> obtenerProductosAhora30() {
+			List<Producto> productosAhora30 = new ArrayList<>();
+			
 			for (Producto p : productos) {
-				String descripcion = p.getDescripcion().toLowerCase();
-				// Si el producto es un celular limite de 800000
-				if (descripcion.contains("celular") && p.getPrecioUnitario() <= 800000) {
-					System.out.println(p);
-					System.out.println("-----------------------------------------------------------");
-				// Si el producto es un electrodomestico tiene limite de 1500000
-				} else if (!descripcion.contains("celular") && p.getPrecioUnitario() <= 1500000) {
-					System.out.println(p);
-					System.out.println("-----------------------------------------------------------");
+				if (p.getOrigenFabricacion().equals("Argentina")) {
+					String descripcion = p.getDescripcion().toLowerCase();
+					boolean califica = false;
+
+					// Verificar celulares (límite $800000)
+					if (descripcion.contains("celular") && p.getPrecioUnitario() <= 800000) {
+						califica = true;
+					}
+					// Verificar electrodomésticos (límite $1500000)
+					else if (p.getPrecioUnitario() <= 1500000 && 
+							(descripcion.contains("aire") || 
+							descripcion.contains("heladera") || 
+							descripcion.contains("lavarropas") || 
+							descripcion.contains("tv") || 
+							descripcion.contains("televisor"))) {
+						califica = true;
+					}
+
+					if (califica) {
+						productosAhora30.add(p);
+					}
 				}
 			}
-			System.out.println("Fin del listado.");
+			
+			return productosAhora30;
+		}
+
+		public static boolean buscarProductoAhora30 (long codigo) {
+			List<Producto> productosAhora30 = obtenerProductosAhora30();
+			
+			for (Producto p : productosAhora30) {
+				if (p.getCodigo() == codigo) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+
+		public static void mostrarProductosAhora30() {
+			System.out.println("\n====== Lista de productos disponibles - Ahora 30 ======");
+			CollectionStock.mostrarStockAhora30(obtenerProductosAhora30());
 		}
 }

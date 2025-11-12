@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Factura {
 
-	private LocalDate fecha;
+	private static int contador = 1;
+    private LocalDate fecha;
     private long nroFactura;
     private Cliente cliente;
     private List<Detalle> detalles = new ArrayList<Detalle>();
@@ -16,12 +17,10 @@ public class Factura {
 
     }
 
-    public Factura(LocalDate fecha, long nroFactura, Cliente cliente, List<Detalle> detalles) {
+    public Factura(LocalDate fecha, Cliente cliente) {
         this.fecha = fecha;
-        this.nroFactura = nroFactura;
+        this.nroFactura = contador ++;
         this.cliente = cliente;
-        this.detalles = detalles;
-        calcularTotal();
     }
 
     public LocalDate getFecha() {
@@ -56,20 +55,49 @@ public class Factura {
         this.detalles = detalles;
     }
 
+    public void agregarDetalle(Detalle detalle) {
+        detalles.add(detalle);
+    }
+
+    public double calcularTotalAhora30() {
+        double totalAhora30 = 0;
+        for (Detalle detalle : detalles) {
+            if (detalle.isEstadoAhora30()) {
+                totalAhora30 += detalle.getImporte();
+            }
+        }
+        return totalAhora30;
+    }
+
     public double calcularTotal() {
         double total = 0;
         for (Detalle detalle : detalles) {
-            total += detalle.getImporte();
+            if (!detalle.isEstadoAhora30()) {
+                total += detalle.getImporte();
+            }
         }
         return total;
+    }
+
+    public boolean esFacturaAhora30() {
+        for (Detalle detalle : detalles) {
+            if (detalle.isEstadoAhora30()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public String toString() {
         return  "\n\n******************** Factura ********************"
-                + "\nFecha: " + fecha + " N° de Factura: " + nroFactura
-                + "\nCliente: " + cliente.getNombre() 
+                + "\nFecha: " + fecha + "\nN° de Factura: " + nroFactura
+                + "\nCliente: " + cliente.getNombre() + "\nDNI: " + cliente.getDni()
                 + "\n************ Detalles de la Factura *************"
-                + "\n" + detalles.toString().replaceAll("\\[|\\]", "").replaceAll(", ", "") + "\n";
+                + "\n" + detalles.toString().replaceAll("\\[|\\]", "").replaceAll(", ", "") + "\n"
+                + (esFacturaAhora30() ? "\nTotal Ahora 30: $" + calcularTotalAhora30() 
+                + "\nMonto de cada couta fija: " + calcularTotalAhora30()/30 : "Subtotal: $" + calcularTotal())
+                + "\nMonto total: $" + (calcularTotal() + calcularTotalAhora30());
+
     }
 }

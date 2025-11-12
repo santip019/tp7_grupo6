@@ -40,7 +40,7 @@ public class CollectionCredito {
 							// El segundo verifica que el DNI coincida con el buscado
 
 							System.out.println("\n--- Crédito Encontrado ---");
-							// Llamamos al método que tienes en la clase Credito para mostrar su detalle
+							// Llamamos al método en la clase Credito para mostrar su detalle
 							credito.mostarCredito();
 							encontrado = true;
 						}
