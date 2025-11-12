@@ -6,7 +6,8 @@
 No se dibuja la relación de agregación entre CollectionProducto y Producto porque el vínculo ya se entiende a partir de un atributo en CollectionProducto, ademas su función es guardar y administrar una lista de objetos Producto, eso no es una relación conceptual entre objetos del sistema, sino una estructura de almacenamiento.
 
 ### b) ¿Cuántos atributos tiene la clase Factura? ¿Cuáles son los nombres de esos atributos?
-La clase Factura tiene 4 atributos:
+La clase Factura tiene 5 atributos:
+- `contador: int`
 - `nroFactura: long`
 - `fecha: LocalDate`
 - `clientes: Cliente`
